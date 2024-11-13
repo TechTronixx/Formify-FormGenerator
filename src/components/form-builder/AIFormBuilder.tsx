@@ -1,48 +1,15 @@
-import { useState, useCallback } from "react";
+import { useFormBuilder } from "@/hooks/useFormBuilder";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "../ui/tabs";
 import { BuildTab } from "./BuildTab";
 import { SettingsTab } from "./SettingsTab";
-import { FormConfig } from "../../types/form";
-import { toast } from "sonner";
 import { Card } from "../ui/card";
-import { generateFormStructure } from "../../lib/ai";
 import { Navbar } from "../navigation/Navbar";
 import { Sparkles } from "lucide-react";
-
-// Initial form configuration
-const initialConfig: FormConfig = {
-  title: "",
-  description: "",
-  fields: [],
-  validation: true,
-  helpText: true,
-  placeholders: true,
-};
+import { initialFormConfig } from "@/constants/form";
 
 export function AIFormBuilder() {
-  const [config, setConfig] = useState<FormConfig>(initialConfig);
-  const [isGenerating, setIsGenerating] = useState(false);
-
-  const handleConfigChange = useCallback((newConfig: Partial<FormConfig>) => {
-    setConfig((prev) => ({ ...prev, ...newConfig }));
-  }, []);
-
-  const handleGenerate = useCallback(
-    async (prompt: string) => {
-      setIsGenerating(true);
-      try {
-        const generatedConfig = await generateFormStructure(prompt);
-        handleConfigChange(generatedConfig);
-        toast.success("Form generated successfully!");
-      } catch (error) {
-        toast.error("Failed to generate form");
-        console.error(error);
-      } finally {
-        setIsGenerating(false);
-      }
-    },
-    [handleConfigChange]
-  );
+  const { config, isGenerating, handleConfigChange, handleAIGenerate } =
+    useFormBuilder(initialFormConfig);
 
   return (
     <div className="min-h-screen bg-background">
@@ -67,19 +34,9 @@ export function AIFormBuilder() {
           <Card className="overflow-hidden border-2">
             <Tabs defaultValue="build" className="space-y-6">
               <div className="px-6 pt-6 pb-2 border-b bg-card">
-                <TabsList className="inline-flex items-center justify-center p-1 rounded-lg h-9 bg-muted">
-                  <TabsTrigger
-                    value="build"
-                    className="inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm"
-                  >
-                    Build
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="settings"
-                    className="inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm"
-                  >
-                    Settings
-                  </TabsTrigger>
+                <TabsList>
+                  <TabsTrigger value="build">Build</TabsTrigger>
+                  <TabsTrigger value="settings">Settings</TabsTrigger>
                 </TabsList>
               </div>
 
@@ -88,7 +45,7 @@ export function AIFormBuilder() {
                   <BuildTab
                     config={config}
                     isGenerating={isGenerating}
-                    onGenerate={handleGenerate}
+                    onGenerate={handleAIGenerate}
                   />
                 </TabsContent>
 
