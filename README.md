@@ -2,20 +2,19 @@
 
 A modern web application that leverages AI to generate dynamic forms instantly with google form and xml export.
 
-## 🌟 Overview
+## Overview
 
 AI Form Builder simplifies form creation by using artificial intelligence to generate complete form structures from natural language descriptions. Perfect for developers, product managers, and anyone who needs to quickly create professional forms.
 
-## ✨ Key Features
+## Key Features
 
 - **AI-Powered Generation**: Create complex forms using simple text descriptions
-- **Real-time Preview**: Instantly view your generated forms
+- **Real-time Preview**: Instantly view your generated forms [todo]
 - **Theme Support**: Built-in dark/light mode
 - **Google Forms Export**: Export your forms directly to Google Forms
-- **Responsive Design**: Fully responsive across all devices
-- **Type Safety**: Full TypeScript support for reliable development
+- **Responsive Design**: Fully responsive across all devices [todo]
 
-## 🛠️ Technical Stack
+## Technical Stack
 
 ### Frontend
 
@@ -32,13 +31,13 @@ AI Form Builder simplifies form creation by using artificial intelligence to gen
 - Google Forms API integration
 - Hugging Face API integration
 
-## 🚀 Getting Started
+## Getting Started
 
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/ai-form-builder.git
-cd ai-form-builder
+git clone https://github.com/TechTronixx/Formify-FormGenerator.git
+cd Formify-FormGenerator
 ```
 
 2. Install Bun (if not already installed):
@@ -72,57 +71,29 @@ bun run dev      # Frontend only
 bun run server   # Backend only
 ```
 
-## 🔑 Environment Setup
+## Environment Setup
 
-Create a `.env` file with the following variables (DO NOT COMMIT THIS FILE):
+1. Copy the example environment file:
 
-```env
-# Frontend
-VITE_HUGGINGFACE_API_KEY=
-
-# Backend
-OPENAI_API_KEY=
-GOOGLE_CLIENT_ID=
-GOOGLE_CLIENT_SECRET=
-GOOGLE_REDIRECT_URI=http://localhost:3001/oauth2callback
+```bash
+cp .env.example .env
 ```
 
-## 📝 Available Scripts
+2. Update the `.env` file with your credentials:
 
-- `bun run dev` - Start frontend development server
-- `bun run server` - Start backend server
-- `bun run dev:all` - Start both frontend and backend
-- `bun run build` - Build for production
-- `bun run preview` - Preview production build
-- `bun run token` - Generate Google OAuth refresh token
+```env
+VITE_HUGGINGFACE_API_KEY=           # Get from Hugging Face
+OPENAI_API_KEY=                      # Get from OpenAI
 
-## 🔒 Security Notes
+# Google OAuth (Required for Google Forms export)
+GOOGLE_CLIENT_ID=                    # Get from Google Cloud Console
+GOOGLE_REDIRECT_URI=                 # Default: http://localhost:3001/oauth2callback
+GOOGLE_REFRESH_TOKEN=                # Generated using 'bun run token'
+```
 
-1. Never commit `.env` files or any files containing secrets
-2. Use environment variables for all sensitive data
-3. Keep OAuth credentials secure and never expose them in client-side code
-4. Regularly rotate API keys and secrets
-5. Use `.gitignore` to prevent accidental commits of sensitive files
+3. For Google Forms integration, follow the "Getting Google Forms Refresh Token" section below to obtain the necessary credentials.
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- [Shadcn UI](https://ui.shadcn.com/) for the beautiful components
-- [OpenAI](https://openai.com/) for AI capabilities
-- [Google Forms API](https://developers.google.com/forms/api) for form export functionality
-
-## 🔑 Getting Google Forms Refresh Token
+## Getting Google Forms Refresh Token
 
 To use the Google Forms export feature, you'll need to:
 
@@ -136,4 +107,29 @@ To use the Google Forms export feature, you'll need to:
 5. Follow the prompts to authorize the application
 6. Add the resulting refresh token to your `.env` file as `GOOGLE_REFRESH_TOKEN`
 
-Never commit the refresh token or any other credentials to version control!
+## Available Scripts
+
+- `bun run dev` - Start frontend development server
+- `bun run server` - Start backend server
+- `bun run dev:all` - Start both frontend and backend
+- `bun run build` - Build for production
+- `bun run preview` - Preview production build
+- `bun run token` - Generate Google OAuth refresh token
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- [Shadcn UI](https://ui.shadcn.com/)
+- [OpenAI](https://openai.com/)
+- [Google Forms API](https://developers.google.com/forms/api)
