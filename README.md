@@ -14,8 +14,11 @@ _Forms Preview_
 ![Form Preview](./assets/Demo-2.png)
 _Generated form preview with a custom prompt_
 
-![Form Export Options](./assets/Demo-3.png)
+![Form Export Options](./assets/Demo-5.png)
 _Settings and Export Options_
+
+![Form Export Options](./assets/Demo-4.png)
+_Generated form preview with another custom prompt_
 
 ## Key Features
 
