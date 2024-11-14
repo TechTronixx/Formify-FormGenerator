@@ -1,7 +1,7 @@
 import { FormConfig } from "../types/form";
 
 const HUGGINGFACE_API_KEY = import.meta.env.VITE_HUGGINGFACE_API_KEY;
-const MODEL_NAME = "Qwen/Qwen2.5-32B";
+const MODEL_NAME = "Qwen/Qwen2.5-Coder-32B-Instruct";
 
 interface AIMessage {
   role: "user" | "system";

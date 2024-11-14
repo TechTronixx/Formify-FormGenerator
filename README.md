@@ -6,12 +6,24 @@ A modern web application that leverages AI to generate dynamic forms instantly w
 
 AI Form Builder simplifies form creation by using artificial intelligence to generate complete form structures from natural language descriptions. Perfect for developers, product managers, and anyone who needs to quickly create professional forms.
 
+## Demo Screenshots
+
+![Form Builder Interface](./assets/Demo-1.png)
+_Forms Preview_
+
+![Form Preview](./assets/Demo-2.png)
+_Generated form preview with a custom prompt_
+
+![Form Export Options](./assets/Demo-3.png)
+_Settings and Export Options_
+
 ## Key Features
 
-- **AI-Powered Generation**: Create complex forms using simple text descriptions
+- **AI-Powered Generation**: Create forms using simple text descriptions
 - **Real-time Preview**: Instantly view your generated forms [todo]
 - **Theme Support**: Built-in dark/light mode
 - **Google Forms Export**: Export your forms directly to Google Forms
+- **XML Export**: Export your forms as XML
 - **Responsive Design**: Fully responsive across all devices [todo]
 
 ## Technical Stack

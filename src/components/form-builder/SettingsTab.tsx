@@ -4,9 +4,13 @@ import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { FormConfig } from "../../types/form";
 // import { Card, CardContent } from "../ui/card";
-import { exportAsJSON, exportToGoogleForms } from "../../lib/export-utils";
+import {
+  exportAsJSON,
+  exportToGoogleForms,
+  exportAsExcel,
+} from "../../lib/export-utils";
 import { toast } from "sonner";
-import { FileJson, FileSpreadsheet, Loader2 } from "lucide-react";
+import { FileJson, FileSpreadsheet, FileDown, Loader2 } from "lucide-react";
 import { useState } from "react";
 
 export interface SettingsTabProps {
@@ -16,6 +20,7 @@ export interface SettingsTabProps {
 
 export function SettingsTab({ config, setConfig }: SettingsTabProps) {
   const [isExporting, setIsExporting] = useState(false);
+  const [isExportingExcel, setIsExportingExcel] = useState(false);
 
   const handleJSONExport = async () => {
     try {
@@ -36,6 +41,18 @@ export function SettingsTab({ config, setConfig }: SettingsTabProps) {
       toast.error("Failed to export to Google Forms");
     } finally {
       setIsExporting(false);
+    }
+  };
+
+  const handleExcelExport = async () => {
+    setIsExportingExcel(true);
+    try {
+      await exportAsExcel(config);
+      toast.success("Form exported as Excel successfully!");
+    } catch {
+      toast.error("Failed to export form as Excel");
+    } finally {
+      setIsExportingExcel(false);
     }
   };
 
@@ -115,6 +132,20 @@ export function SettingsTab({ config, setConfig }: SettingsTabProps) {
                   <FileSpreadsheet className="w-4 h-4 mr-2" />
                 )}
                 Export to Google Forms
+              </Button>
+
+              <Button
+                onClick={handleExcelExport}
+                className="justify-start px-4 h-9 bg-muted/50 hover:bg-muted"
+                variant="ghost"
+                disabled={isExportingExcel}
+              >
+                {isExportingExcel ? (
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                ) : (
+                  <FileDown className="w-4 h-4 mr-2" />
+                )}
+                Export as Excel
               </Button>
             </div>
           </div>
