@@ -1,23 +1,22 @@
 export interface FormField {
-  type: "text" | "email" | "number" | "select" | "radio" | "checkbox";
-  name: string;
-  label?: string;
+  id: string;
+  type: "text" | "email" | "number" | "textarea" | "radio" | "file" | "select";
+  label: string;
+  required: boolean;
+  placeholder?: string;
+  helpText?: string;
+  options?: string[];
   validation?: {
-    required?: boolean;
     pattern?: string;
     message?: string;
+    maxSize?: number;
+    acceptedTypes?: string[];
   };
-  options?: Array<{
-    label: string;
-    value: string | number;
-  }>;
-  min?: number;
-  max?: number;
 }
 
 export interface FormConfig {
   title: string;
-  description?: string;
+  description: string;
   fields: FormField[];
 }
 
