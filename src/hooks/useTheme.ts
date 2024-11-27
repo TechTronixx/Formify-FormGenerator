@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 type Theme = "dark" | "light";
 
 export function useTheme() {
   const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window !== "undefined") {
-      return (localStorage.getItem("theme") as Theme) || "light";
-    }
-    return "light";
+    if (typeof window === "undefined") return "light";
+    return (localStorage.getItem("theme") as Theme) || "light";
   });
+
+  const toggleTheme = useCallback(() => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+  }, []);
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -17,5 +19,5 @@ export function useTheme() {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  return { theme, setTheme };
+  return { theme, setTheme, toggleTheme };
 }

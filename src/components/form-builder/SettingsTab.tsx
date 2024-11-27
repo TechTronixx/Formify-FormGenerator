@@ -122,16 +122,19 @@ export function SettingsTab({ config, setConfig }: SettingsTabProps) {
 
               <Button
                 onClick={handleGoogleFormsExport}
-                className="justify-start px-4 h-9 bg-muted/50 hover:bg-muted"
+                className="relative justify-start px-4 h-9 text-muted-foreground hover:bg-muted group"
                 variant="ghost"
                 disabled={isExporting}
               >
                 {isExporting ? (
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin " />
                 ) : (
-                  <FileSpreadsheet className="w-4 h-4 mr-2" />
+                  <FileSpreadsheet className="w-4 h-4 mr-2 " />
                 )}
                 Export to Google Forms
+                <span className="absolute -top-1 -right-2 px-1.5 py-0.5 text-[10px] font-semibold tracking-wide rounded-full bg-primary/10 text-primary border border-primary/20">
+                  BETA
+                </span>
               </Button>
 
               <Button

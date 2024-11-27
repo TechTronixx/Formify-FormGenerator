@@ -3,16 +3,20 @@ import { AIFormBuilder } from "./components/form-builder/AIFormBuilder";
 import { FormPreview } from "./pages/FormPreview";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "./components/providers/ThemeProvider";
+import { ErrorBoundary } from "./components/ErrorBoundary";
+
 function App() {
   return (
     <Router>
-      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <Toaster position="top-center" richColors closeButton />
-        <Routes>
-          <Route path="/" element={<AIFormBuilder />} />
-          <Route path="/preview" element={<FormPreview />} />
-        </Routes>
-      </ThemeProvider>
+      <ErrorBoundary>
+        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+          <Toaster position="top-center" richColors closeButton />
+          <Routes>
+            <Route path="/" element={<AIFormBuilder />} />
+            <Route path="/preview" element={<FormPreview />} />
+          </Routes>
+        </ThemeProvider>
+      </ErrorBoundary>
     </Router>
   );
 }

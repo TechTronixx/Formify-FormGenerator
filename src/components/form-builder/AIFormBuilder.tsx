@@ -25,13 +25,12 @@ export function AIFormBuilder() {
               </h1>
             </div>
             <p className="max-w-2xl mx-auto text-muted-foreground">
-              Create professional forms instantly using AI. Describe your form
-              requirements, and watch as AI generates a complete form structure
-              for you.
+              Just describe what you need, and watch AI create your perfect form
+              in seconds. It's that simple - from idea to reality in a snap.
             </p>
           </div>
 
-          <Card className="overflow-hidden border-2">
+          <Card className="overflow-hidden border-2 dark:bg-slate-800/55">
             <Tabs defaultValue="build" className="space-y-6">
               <div className="px-6 pt-6 pb-2 border-b bg-card">
                 <TabsList>

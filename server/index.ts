@@ -2,6 +2,8 @@ import express, { Request, Response } from "express";
 import { google } from "googleapis";
 import dotenv from "dotenv";
 import cors from "cors";
+import rateLimit from "express-rate-limit";
+import { validateFormConfig } from "../src/utils/form-validation";
 
 dotenv.config();
 
@@ -48,81 +50,101 @@ interface FormConfig {
   fields: FormField[];
 }
 
-app.post("/api/export-to-google-forms", async (req: Request, res: Response) => {
-  try {
-    const formConfig: FormConfig = req.body;
-
-    if (!formConfig.title || !Array.isArray(formConfig.fields)) {
-      return res.status(400).json({ error: "Invalid form configuration" });
-    }
-
-    // First, create the form with just the title
-    const form = await forms.forms.create({
-      requestBody: {
-        info: {
-          title: formConfig.title,
-        },
-      },
-    });
-
-    if (!form.data.formId) {
-      throw new Error("No form ID received from Google Forms API");
-    }
-
-    const formId = form.data.formId;
-
-    // Then, update the form with description and other info
-    await forms.forms.batchUpdate({
-      formId,
-      requestBody: {
-        requests: [
-          // Add description if it exists
-          ...(formConfig.description
-            ? [
-                {
-                  updateFormInfo: {
-                    info: {
-                      description: formConfig.description,
-                    },
-                    updateMask: "description",
-                  },
-                },
-              ]
-            : []),
-          // Add all form fields
-          ...formConfig.fields.map((field, index) => ({
-            createItem: {
-              item: {
-                title: field.label,
-                description: field.helpText,
-                questionItem: {
-                  question: {
-                    required: field.required,
-                    textQuestion: {
-                      paragraph: field.type === "textarea",
-                    },
-                  },
-                },
-              },
-              location: { index },
-            },
-          })),
-        ],
-      },
-    });
-
-    const formUrl = `https://docs.google.com/forms/d/${formId}/viewform`;
-    console.log("Form created successfully:", formUrl);
-
-    res.json({ formUrl });
-  } catch (error) {
-    console.error("Google Forms API error:", error);
-    res.status(500).json({
-      error: "Failed to create Google Form",
-      details: error instanceof Error ? error.message : "Unknown error",
-    });
-  }
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
 });
+
+app.use(limiter);
+
+// Add request validation middleware
+const validateRequest = (req: Request, res: Response, next: Function) => {
+  const errors = validateFormConfig(req.body);
+  if (errors.length) {
+    return res.status(400).json({ errors });
+  }
+  next();
+};
+
+app.post(
+  "/api/export-to-google-forms",
+  validateRequest,
+  async (req: Request, res: Response) => {
+    try {
+      const formConfig: FormConfig = req.body;
+
+      if (!formConfig.title || !Array.isArray(formConfig.fields)) {
+        return res.status(400).json({ error: "Invalid form configuration" });
+      }
+
+      // First, create the form with just the title
+      const form = await forms.forms.create({
+        requestBody: {
+          info: {
+            title: formConfig.title,
+          },
+        },
+      });
+
+      if (!form.data.formId) {
+        throw new Error("No form ID received from Google Forms API");
+      }
+
+      const formId = form.data.formId;
+
+      // Then, update the form with description and other info
+      await forms.forms.batchUpdate({
+        formId,
+        requestBody: {
+          requests: [
+            // Add description if it exists
+            ...(formConfig.description
+              ? [
+                  {
+                    updateFormInfo: {
+                      info: {
+                        description: formConfig.description,
+                      },
+                      updateMask: "description",
+                    },
+                  },
+                ]
+              : []),
+            // Add all form fields
+            ...formConfig.fields.map((field, index) => ({
+              createItem: {
+                item: {
+                  title: field.label,
+                  description: field.helpText,
+                  questionItem: {
+                    question: {
+                      required: field.required,
+                      textQuestion: {
+                        paragraph: field.type === "textarea",
+                      },
+                    },
+                  },
+                },
+                location: { index },
+              },
+            })),
+          ],
+        },
+      });
+
+      const formUrl = `https://docs.google.com/forms/d/${formId}/viewform`;
+      console.log("Form created successfully:", formUrl);
+
+      res.json({ formUrl });
+    } catch (error) {
+      console.error("Google Forms API error:", error);
+      res.status(500).json({
+        error: "Failed to create Google Form",
+        details: error instanceof Error ? error.message : "Unknown error",
+      });
+    }
+  }
+);
 
 // Health check endpoint
 app.get("/health", (req, res) => {
