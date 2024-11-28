@@ -6,8 +6,14 @@ A modern web application that leverages AI to generate dynamic forms instantly w
 
 AI Form Builder simplifies form creation by using artificial intelligence to generate complete form structures from natural language descriptions. Perfect for developers, product managers, and anyone who needs to quickly create professional forms.
 
-## Demo Screenshots
+## Form Builder Preview
 
+
+
+https://github.com/user-attachments/assets/2b79b3d0-f358-45f5-b350-19351eec0593
+
+
+## Demo Screenshots
 ![Form Builder Interface](https://github.com/TechTronixx/Formify-FormGenerator/blob/main/Assets/Demo-1.png?raw=true)
 _Forms Preview_
 
