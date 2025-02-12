@@ -8,8 +8,6 @@ AI Form Builder simplifies form creation by using artificial intelligence to gen
 
 ## Form Builder Preview
 
-
-
 https://github.com/user-attachments/assets/2b79b3d0-f358-45f5-b350-19351eec0593
 
 
@@ -25,6 +23,10 @@ _Settings and Export Options_
 
 ![Form Export Options](https://github.com/TechTronixx/Formify-FormGenerator/blob/main/Assets/Demo-4.png)
 _Generated form preview with another custom prompt_
+
+
+## Diagram Overview 
+<img width="1374" alt="image" src="https://github.com/user-attachments/assets/5cfe8320-7b62-47bd-b407-6ac16f421a68" />
 
 ## Key Features
 
