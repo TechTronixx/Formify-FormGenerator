@@ -1,10 +1,18 @@
-# AI Form Builder
+# Formify
+
+![Vite](https://img.shields.io/badge/Vite-646cff?style=flat&logo=vite&logoColor=white)
+![React](https://img.shields.io/badge/React-61dafb?style=flat&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178c6?style=flat&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38bdf8?style=flat&logo=tailwindcss&logoColor=white)
+![Express](https://img.shields.io/badge/Express-000000?style=flat&logo=express&logoColor=white)
+![License](https://img.shields.io/github/license/TechTronixx/Formify-FormGenerator)
+![Last commit](https://img.shields.io/github/last-commit/TechTronixx/Formify-FormGenerator)
 
 A modern web application that leverages AI to generate dynamic forms instantly with google form and xml export.
 
 ## Overview
 
-AI Form Builder simplifies form creation by using artificial intelligence to generate complete form structures from natural language descriptions. Perfect for developers, product managers, and anyone who needs to quickly create professional forms.
+Formify turns a plain-language description into a complete form structure using AI, then exports it to Google Forms or XML. It cuts form building down to a single prompt.
 
 ## Form Builder Preview
 
@@ -15,13 +23,13 @@ https://github.com/user-attachments/assets/2b79b3d0-f358-45f5-b350-19351eec0593
 ![Form Builder Interface](https://github.com/TechTronixx/Formify-FormGenerator/blob/main/Assets/Demo-1.png?raw=true)
 _Forms Preview_
 
-![Form Preview](https://github.com/TechTronixx/Formify-FormGenerator/blob/main/Assets/Demo-2.png)
+![Form Preview](https://github.com/TechTronixx/Formify-FormGenerator/blob/main/Assets/Demo-2.png?raw=true)
 _Generated form preview with a custom prompt_
 
-![Form Export Options](https://github.com/TechTronixx/Formify-FormGenerator/blob/main/Assets/Demo-5.png)
+![Form Export Options](https://github.com/TechTronixx/Formify-FormGenerator/blob/main/Assets/Demo-5.png?raw=true)
 _Settings and Export Options_
 
-![Form Export Options](https://github.com/TechTronixx/Formify-FormGenerator/blob/main/Assets/Demo-4.png)
+![Form Export Options](https://github.com/TechTronixx/Formify-FormGenerator/blob/main/Assets/Demo-4.png?raw=true)
 _Generated form preview with another custom prompt_
 
 
